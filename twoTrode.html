@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
 
-  <title>TwoTrode Documentation</title>
+  <title style="font-family:'Arial'">TwoTrode Documentation</title>
 
 
 
@@ -12,23 +12,165 @@
 
 
 
-<body>
+<body style="margin:5%;padding:5%">
 
-    <h1>Two Channel Trode Documentation</h1>
+    <h1 style="font-family:'Arial'">Two Channel Extracellular Analyis Documentation</h1>
 
     <a href="#listFiles">listFiles</a>,
     <a href="#makeFname">makeFname</a>,  
     <a href="#Loadfile">LoadFile</a>,
     <a href="#plotData">plotData</a>,
     <a href="#clip">clip</a>,
+    <a href="#lpFilter">lpFilter</a>,
+    <a href="#hpFilter">hpFilter</a>,
+    <a href="#PSD">#PSD</a>,
 
-    <p>
+   <br>
+   <br>
+    <hr>
+      <p style="font-family:'Courier New'">
+    <a id="listFiles">tc.<b>ListFiles()</b></a>
+    </p>
+
+    <p style="font-family:'Arial'">Syntax</p>
+
+    <p style="margin-left:10%; margin-right:10%;font-family:'Courier New'">tc.listFiles(folder)</p>
+    <p style="font-family:'Arial'">Description</p>
+    <p style="margin-left:10%; margin-right:10%;font-family:'Arial'">Lists all of the files within a particular folder.</p>
+    <p style="font-family:'Arial'">Example</p>
+    <p style="margin-left:10%; margin-right:10%;font-family:'Courier New';background-color: lightgrey;">folder = '/content/gdrive/My Drive/LabData/InVivoData’ <br> tc.listFiles(folder)  </p>
+
+<hr>
+
+<p style="font-family:'Courier New'">
+  <a id="makeFname">tc.<b>makeFname()</b></a>
+  </p>
+
+  <p style="font-family:'Arial'">Syntax</p>
+
+  <p style="margin-left:10%; margin-right:10%;font-family:'Courier New'">fname = tc.makeFname(run, folder, Exp)</p>
+  <p style="font-family:'Arial'">Description</p>
+  <p style="margin-left:10%; margin-right:10%;font-family:'Arial'">Generates a string based on run number, file location (folder), and experiment name.</p>
+  <p style="font-family:'Arial'">Example</p>
+  <p style="margin-left:10%; margin-right:10%;font-family:'Courier New';background-color: lightgrey;">
+    RUN = 0 <br>
+    Exp = ‘XXMMDDYY’ # Experiment name<br>
+    mainFolder = ‘/content/gdrive/My Drive/LabData/InVivoData’<br>
+    fname = ‘/content/gdrive/My Drive/LabData/InVivoData/XXMMDDYY/XXMMDDYY-0.smr’
+     
+  </p>
+
+  <hr>
+
+<p style="font-family:'Courier New'">
+  <a id="Loadfile">tc.<b>Loadfile()</b></a>
+  </p>
+
+  <p style="font-family:'Arial'">Syntax</p>
+
+  <p style="margin-left:10%; margin-right:10%;font-family:'Courier New'">time, ch0, ch1 = tc.Loadfile(folder)</p>
+  <p style="font-family:'Arial'">Description</p>
+  <p style="margin-left:10%; margin-right:10%;font-family:'Arial'">Loads a run from a datafile and extracts time, channel0, and channel1 arrays. </p>
+  <p style="font-family:'Arial'">Example</p>
+  <p style="margin-left:10%; margin-right:10%;font-family:'Courier New';background-color: lightgrey;">
+
+    fname = mainFolder <br>
+    time, ch0, ch1 = tc.Loadfile(fname)
+     
+  </p>
 
 
-    <a id="listFiles">List Files</a>
-</p>
+
+  <hr>
+
+  <p style="font-family:'Courier New'">
+    <a id="plotData">tc.<b>plotData()</b></a>
+    </p>
+  
+    <p style="font-family:'Arial'">Syntax</p>
+  
+    <p style="margin-left:10%; margin-right:10%;font-family:'Courier New'">tc.plotData(time,ch0,ch1)</p>
+    <p style="font-family:'Arial'">Description</p>
+    <p style="margin-left:10%; margin-right:10%;font-family:'Arial'">Plots two channels of data arrays against time array. The optional keyword arguement pair <b style="font-family:'Courier New'">outputName='filename'</b> will save the plot as both a vector graphics (svg) and bitmap (jpg) file to the selected folder (<i style="font-family:'Courier New'">%cd /content/gdrive/My\ Drive/Folder.</i>)  </p>
+    <p style="font-family:'Arial'">Example</p>
+    <p style="margin-left:10%; margin-right:10%;font-family:'Courier New';background-color: lightgrey;">
+  
+      tc.plotData(time, ch0, ch1, ​outputName=’String’​)
+       
+    </p>
+
+    <hr>
+  
+    <p style="font-family:'Courier New'">
+      <a id="Loadfile">tc.<b>clip()</b></a>
+      </p>
+    
+      <p style="font-family:'Arial'">Syntax</p>
+    
+      <p style="margin-left:10%; margin-right:10%;font-family:'Courier New'">time_clip, ch0_clip, ch1_clip = tc.clip(start,stop, time,ch0,ch1)</p>
+      <p style="font-family:'Arial'">Description</p>
+      <p style="margin-left:10%; margin-right:10%;font-family:'Arial'">Indexes a subset of points based on a <b style="font-family:'Courier New'">start/stop</b> times (in milliseconds) and the time, channel0, and channel1 arrays.</p>
+      <p style="font-family:'Arial'">Example</p>
+      <p style="margin-left:10%; margin-right:10%;font-family:'Courier New';background-color: lightgrey;">
+    
+        
+        tm_clp, c0_clp, c1_clp = tc.Loadfile(10000,11000,time,ch0,ch1)
+         
+      </p>
+    
+    
+    
+      <hr>
 
 
+    <p style="font-family:'Courier New'">
+      <a id="lpFilter">tc.<b>lpFilter()</b></a>
+      </p>
+    
+      <p style="font-family:'Arial'">Syntax</p>
+    
+      <p style="margin-left:10%; margin-right:10%;font-family:'Courier New'">f0, f1 = tc.lpFilter(c0, c1, order, cutoff)</p>
+      <p style="font-family:'Arial'">Description</p>
+      <p style="margin-left:10%; margin-right:10%;font-family:'Arial'">Performs low-pass filtering of two arrays <b style="font-family:'Courier New'">c0,c1</b> based on <b style="font-family:'Courier New'">order</b>(1-n) and <b style="font-family:'Courier New'"> cutoff</b> frequency (Hz).</p>
+      <p style="font-family:'Arial'">Example</p>
+      <p style="margin-left:10%; margin-right:10%;font-family:'Courier New';background-color: lightgrey;">
+    
+        
+        f0, f1 = tc.lpFilter(c0, c1, 6, 220)
+         
+      </p>
+    
+    
+    
+      <hr>
+
+
+    <p style="font-family:'Courier New'">
+      <a id="hpFilter">tc.<b>PSD()</b></a>
+      </p>
+    
+      <p style="font-family:'Arial'">Syntax</p>
+    
+      <p style="margin-left:10%; margin-right:10%;font-family:'Courier New'">f0, psd0, f1, psd1 = tc.PSD(c0, c1, order, **kwargs)</p>
+      <p style="font-family:'Arial'">Description</p>
+      <p style="margin-left:10%; margin-right:10%;font-family:'Arial'">Performs Power Spectral Density Analysis on two data arrays <b style="font-family:'Courier New'">c0,c1</b> based on <b style="font-family:'Courier New'">order</b>(1-n).<br> 
+      Keyword arguement pairs:  
+      <b style="font-family:'Courier New'">plot = 'true', xmax = n</b>, the former generates a plot and the latter adjusts the maximum dimension of the x-axis.
+        Return values are frequency and power arrays for both channels.
+      </p>
+      <p style="font-family:'Arial'">Examples</p>
+      <p style="margin-left:10%; margin-right:10%;font-family:'Courier New';background-color: lightgrey;">
+    
+        
+        f0, psd0, f1, psd1 = tc.PSD(c0, c1, 10) <br>
+        f0, psd0, f1, psd1 = tc.PSD(c0, c1, 10, plot='true') <br>
+        f0, psd0, f1, psd1 = tc.PSD(c0, c1, 10, plot='true', xmax=25) <br>
+         
+      </p>
+    
+    
+    
+      <hr>
 
 </body>
 </html>
